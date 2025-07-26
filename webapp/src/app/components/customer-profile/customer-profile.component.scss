@@ -1,0 +1,27 @@
+:host {
+  --theme-light: #E3FDFD;
+  --theme-card: #CBF1F5;
+  --theme-primary: #71C9CE;
+  --theme-accent: #A6E3E9;
+  --theme-dark: #222222;
+  --theme-muted: #555555;
+}
+
+.bg-theme-light {
+  background-color: var(--theme-light);
+}
+.bg-theme-card {
+  background-color: var(--theme-card);
+}
+.bg-theme-primary {
+  background-color: var(--theme-primary);
+}
+.bg-theme-accent {
+  background-color: var(--theme-accent);
+}
+.text-theme-dark {
+  color: var(--theme-dark);
+}
+.text-theme-muted {
+  color: var(--theme-muted);
+}

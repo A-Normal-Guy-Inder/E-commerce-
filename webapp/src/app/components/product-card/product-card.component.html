@@ -1,0 +1,47 @@
+<div [routerLink]="'/products/'+product._id" class="w-[270px] border-2 bg-white rounded-xl shadow-lg hover:shadow-2xl cursor-pointer transition duration-300">
+  <!-- Static Image with Fixed Height -->
+  <div class="relative w-full h-60  overflow-hidden rounded-t-xl">
+    <img
+      class="w-full h-full object-contain p-2"
+      [src]="getOptimizedImage(product.images[0])"
+      alt="Product image"
+      width="200"
+     height="192"
+    />
+  </div>
+
+  <!-- Product Info -->
+  <div class="p-3 space-y-1">
+    <div class="overflow-hidden whitespace-nowrap relative">
+      <span
+        class="text-xl font-medium text-gray-800 inline-block max-w-full text-wrap"
+      >
+        {{ product.name }}
+      </span>
+    </div>
+
+    <p class="text-sm text-gray-600 line-clamp-2">
+      {{ product.shortDescription }}
+    </p>
+
+    <div class="flex justify-between gap-1">
+      <div class="flex item-center gap-1 mt-2">
+          <span class="text-lg font-semibold text-cyan-600"> &#8377;{{sellingPrice}}</span>
+          <div *ngIf="product.discount!=0" class="flex item-center gap-1">
+            <span class="text-md text-gray-400 mt-1"><s> &#8377;{{product.Price}}</s></span>
+            <span class="text-sm text-orange-400 mt-1">{{product.discount}}% off</span>
+          </div>
+      </div>
+      <div class="flex item-center gap-2">
+          <button mat-mini-fab color="warn" (click)="addToWishlist(product); $event.stopPropagation()">
+          <mat-icon *ngIf="isInWishlist(product)" class="text-red-500">favorite</mat-icon>
+          <mat-icon *ngIf="!isInWishlist(product)" class="text-red-500">favorite_border</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" (click)="addToCart(product); $event.stopPropagation()">
+          <mat-icon *ngIf="!isProductInCart(product._id!)" >add_shopping_cart</mat-icon>
+          <mat-icon *ngIf="isProductInCart(product._id!)">remove_shopping_cart</mat-icon>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

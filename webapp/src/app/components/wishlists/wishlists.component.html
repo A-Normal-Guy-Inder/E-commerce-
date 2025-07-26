@@ -1,0 +1,7 @@
+<h4 class="text-xl font-bold mt-4 mb-2">Wishlist:</h4>
+  <div class="flex flex-wrap gap-4 mb-4 items-stretch">
+    <div class="w-auto flex items-center" *ngFor="let product of wishlistService.wishlists; let i = index">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
+  <h6 *ngIf="wishlistService.wishlists.length==0" class="text-md mb-2">No Items in Wishlist</h6>

@@ -1,0 +1,13 @@
+<div class="min-h-screen bg-theme-light flex items-center justify-center p-6">
+  <div class="bg-theme-card shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
+    <h2 class="mt-4 text-xl font-bold text-theme-dark">Profile</h2>
+
+    <p class="text-theme-muted">Name: {{ authService.userName }}</p>
+    <p class="text-theme-muted">Email: {{ authService.userEmail }}</p>
+    <p class="text-theme-muted mt-2">Role: {{ authService.userRole }}</p>
+    <button (click)="logout()" class="mt-6 px-6 py-2 bg-[#71C9CE] text-white rounded-3xl hover:bg-cyan-500 transition">
+            Logout
+          </button>
+
+  </div>
+</div>

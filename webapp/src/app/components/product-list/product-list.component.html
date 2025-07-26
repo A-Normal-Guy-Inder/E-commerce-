@@ -1,0 +1,45 @@
+<div class="flex px-10 py-2">
+    <div class="w-4/12">
+        <h6>Filters</h6>
+        <div class="flex flex-col px-6">
+            <div class="w-full p-2 mb-4">
+                <mat-form-field class="w-full">
+                <mat-label>Category</mat-label>
+                <mat-select name="CategoryID" [(ngModel)]="CategoryID" (valueChange)="getProducts()">
+                    <mat-option *ngFor="let item of category" [value]="item._id">{{item.name}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="w-full p-2 mb-4">
+                <mat-form-field class="w-full">
+                <mat-label>Brand</mat-label>
+                <mat-select name="brandID" [(ngModel)]="brandID" (valueChange)="getProducts()">
+                    <mat-option *ngFor="let item of brand" [value]="item._id">{{item.name}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="flex-1">
+        <div class="flex justify-between">
+            <h6>Products</h6>
+            <mat-form-field class="w-40">
+            <mat-label>Orderby(Price):</mat-label>
+            <mat-select (valueChange)="orderChange($event)">
+                <mat-option [value]="-1">High to Low</mat-option>
+                <mat-option [value]="1">Low to High</mat-option>
+            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="flex flex-wrap">
+            <div *ngFor="let pro of products" class="mr-4 mb-4">
+                <p *ngIf="!products || products.length === 0">No products found.</p>
+                <app-product-card [product]="pro"></app-product-card>
+            </div>
+        </div>
+          <div class="flex justify-between">
+            <button mat-raised-button color="primary" (click)="pageChange(page+1)" [disabled]="page==1">Previous</button>
+            <button mat-raised-button color="primary" (click)="pageChange(page-1)" [disabled]="page==totalPages">Next</button>
+          </div> 
+    </div>
+</div>
