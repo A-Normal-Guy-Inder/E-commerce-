@@ -26,10 +26,10 @@
 
     <div class="flex justify-between gap-1">
       <div class="flex item-center gap-1 mt-2">
-          <span class="text-lg font-semibold text-cyan-600"> &#8377;{{sellingPrice}}</span>
+          <span class="text-md font-semibold text-cyan-600"> &#8377;{{sellingPrice}}</span>
           <div *ngIf="product.discount!=0" class="flex item-center gap-1">
-            <span class="text-md text-gray-400 mt-1"><s> &#8377;{{product.Price}}</s></span>
-            <span class="text-sm text-orange-400 mt-1">{{product.discount}}% off</span>
+            <span class="text-sm text-gray-400 mt-1"><s> &#8377;{{product.Price}}</s></span>
+            <span class="text-xs text-orange-400 mt-1">{{product.discount}}% off</span>
           </div>
       </div>
       <div class="flex item-center gap-2">

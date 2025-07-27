@@ -23,7 +23,7 @@
     <div class="flex-1">
         <div class="flex justify-between">
             <h6>Products</h6>
-            <mat-form-field class="w-40">
+            <mat-form-field class="w-60">
             <mat-label>Orderby(Price):</mat-label>
             <mat-select (valueChange)="orderChange($event)">
                 <mat-option [value]="-1">High to Low</mat-option>
@@ -32,7 +32,7 @@
             </mat-form-field>
         </div>
         <div class="flex flex-wrap">
-            <div *ngFor="let pro of products" class="mr-4 mb-4">
+            <div *ngFor="let pro of products" class="mr-1 mb-1">
                 <p *ngIf="!products || products.length === 0">No products found.</p>
                 <app-product-card [product]="pro"></app-product-card>
             </div>

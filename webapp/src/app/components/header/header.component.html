@@ -1,7 +1,7 @@
 <header class="header w-full bg-theme-light shadow">
   <!-- Top Bar -->
   <div class="top-bar flex flex-col md:flex-row items-center justify-between gap-3 px-4 py-2 border-b border-theme-border">
-    <img *ngIf="!authService.isAdmin" class="h-14 w-21" src="/images/logo.png" alt="logo">
+    <img *ngIf="!authService.isAdmin" class="h-14 w-21 cursor-pointer" src="/images/logo.png" alt="logo" routerLink="/">
     <div *ngIf="authService.isAdmin" routerLink="/admin" class="logo text-xl font-semibold text-gray-800 hover:underline cursor-pointer">
       Admin Controls
     </div>
