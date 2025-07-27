@@ -1,3 +1,4 @@
 export const environment = {
-    apiUrl: "http://myshop.jamshedpur",
+    production: true,
+    apiUrl: "https://e-commerce-backend-z9ln.onrender.com",
 };
