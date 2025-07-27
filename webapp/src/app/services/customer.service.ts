@@ -36,5 +36,9 @@ export class CustomerService {
     return this.http.get<Product>(environment.apiUrl+"/customer/products/"+id);
   }
   
+  addContactUsMessage(name: string, email: string, message: string) {
+    const contactData = { name, email, message };
+    return this.http.post(environment.apiUrl + '/customer/contact-us', contactData);
+  }
   constructor() { }
 }

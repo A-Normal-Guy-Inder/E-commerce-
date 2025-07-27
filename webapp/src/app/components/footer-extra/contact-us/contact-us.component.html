@@ -1,0 +1,49 @@
+<div *ngIf="!authSevice.isAdmin" class="p-6 bg-[#E3FDFD] min-h-screen">
+  <h1 class="text-2xl font-bold text-[#71C9CE] mb-4 border-b-4 border-[#71C9CE] inline-block pb-1">Contact Us:</h1>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="space-y-4 max-w-xl mt-6">
+
+    <input formControlName="name" type="text" placeholder="Your Name"
+      class="w-full p-3 border rounded-xl outline-none" />
+    <div *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" class="text-red-500 text-sm">
+      Name is required.
+    </div>
+
+    <input formControlName="email" type="email" placeholder="Your Email"
+      class="w-full p-3 border rounded-xl outline-none" />
+    <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" class="text-red-500 text-sm">
+      Valid email is required.
+    </div>
+
+    <textarea formControlName="message" placeholder="Your Message" rows="5"
+      class="w-full p-3 border rounded-xl outline-none"></textarea>
+    <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" class="text-red-500 text-sm">
+      Message is required.
+    </div>
+
+    <button type="submit"
+      class="bg-[#71C9CE] text-white px-6 py-2 rounded-xl hover:bg-[#58b1b8]"
+      [disabled]="contactForm.invalid">Send Message</button>
+
+  </form>
+</div>
+
+<div *ngIf="authSevice.isAdmin" class="p-6 bg-[#E3FDFD] min-h-screen">
+  <h1 class="text-2xl font-bold text-[#71C9CE] mb-6 border-b-4 border-[#71C9CE] inline-block pb-1">
+    Contact Messages:
+  </h1>
+
+  <div *ngIf="messages.length > 0; else noMessages" class="grid gap-4">
+    <div *ngFor="let msg of messages" class="bg-white p-4 rounded-2xl shadow border-l-4 border-[#71C9CE]">
+      <div class="flex justify-between items-center">
+        <h2 class="font-semibold text-[#71C9CE] text-lg">{{ msg.name }}</h2>
+        <span class="text-sm text-gray-500">{{ msg.email }}</span>
+      </div>
+      <p class="text-gray-700 mt-2">{{ msg.message }}</p>
+    </div>
+  </div>
+
+  <ng-template #noMessages>
+    <div class="text-gray-500 text-center mt-10">No contact messages found.</div>
+  </ng-template>
+</div>
+

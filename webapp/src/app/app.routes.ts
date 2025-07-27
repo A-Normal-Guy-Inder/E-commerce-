@@ -18,6 +18,10 @@ import { WishlistsComponent } from './components/wishlists/wishlists.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { CustomerOrdersComponent } from './components/customer-orders/customer-orders.component';
 import { OrdersComponent } from './components/manage/orders/orders.component';
+import { ContactUsComponent } from './components/footer-extra/contact-us/contact-us.component';
+import { ShippingComponent } from './components/footer-extra/shipping/shipping.component';
+import { ReturnsComponent } from './components/footer-extra/returns/returns.component';
+import { FaqComponent } from './components/footer-extra/faq/faq.component';
 
 export const routes: Routes = [
     {
@@ -118,4 +122,8 @@ export const routes: Routes = [
         component:OrdersComponent,
         canActivate:[adminGuard],
     },
+    { path: 'contact-us', component: ContactUsComponent },
+    { path: 'shipping', component: ShippingComponent },
+    { path: 'returns', component: ReturnsComponent },
+    { path: 'faq', component: FaqComponent },
 ];

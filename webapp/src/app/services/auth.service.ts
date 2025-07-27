@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { jwtDecode } from "jwt-decode";
+import { Contactus } from '../types/contactus';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,10 @@ export class AuthService {
       return JSON.parse(userData).isAdmin === true ? "Admin" : "Customer";
     }
     return false;
+  }
+
+  getContactUsMessages() {
+    return this.http.get<Contactus[]>(environment.apiUrl + "/auth/contact-us");
   }
 
   logout(): void {

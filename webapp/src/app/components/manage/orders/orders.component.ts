@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { CommonModule } from '@angular/common';
 import { Order } from '../../../types/order';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -11,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule,MatPaginator,MatSelectModule,FormsModule,MatButtonToggleModule],
+  imports: [CommonModule,MatSelectModule,FormsModule,MatButtonToggleModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })

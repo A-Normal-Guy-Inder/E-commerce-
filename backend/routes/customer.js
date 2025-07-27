@@ -98,4 +98,14 @@ router.get("/orders",async (req,res)=>{
     res.send(orders);
 });
 
+router.post("/contact-us", async (req, res) => {
+    const contactModel = req.body;
+    try {
+        await require('../handlers/contact_us-handler').addContactUs(contactModel);
+        res.status(201).send({ message: "Contact request submitted successfully." });
+    } catch (error) {
+        res.status(500).send({ error: "Failed to submit contact request." });
+    }
+});
+
 module.exports=router;

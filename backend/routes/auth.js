@@ -35,4 +35,13 @@ router.post("/login",async(req,res)=>{
     }
 });
 
+router.get("/contact-us", async (req, res) => {
+    try {
+        const contacts = await require('../handlers/contact_us-handler').getAllContacts();
+        res.send(contacts);
+    } catch (error) {
+        res.status(500).send({ error: "Failed to retrieve contact requests." });
+    }
+});
+
 module.exports= router;
