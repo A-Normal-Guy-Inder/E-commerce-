@@ -2,8 +2,6 @@
 
 A modern and scalable **E-Commerce Web Application** built with **Angular** and **Node.js**. It features user authentication, dynamic product browsing, cart management, and an admin dashboard for managing products and orders.
 
-> ⚠️ This project is currently in development and not yet deployed.
-
 ---
 
 ## 🚀 Tech Stack
