@@ -3,12 +3,24 @@ import { inject, Injectable } from '@angular/core';
 import { Product } from '../types/product';
 import { environment } from '../../environments/environment';
 import { Category } from '../types/Category';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
   http=inject(HttpClient);
+
+
+  private categoriesSubject = new BehaviorSubject<Category[]>([]);
+  categories$ = this.categoriesSubject.asObservable();
+
+  fetchCategories() {
+    this.http.get<Category[]>(environment.apiUrl + "/customer/categories")
+      .subscribe(categories => {
+        this.categoriesSubject.next(categories);
+      });
+  }
 
   getNewProducts(){
     return this.http.get<Product[]>(environment.apiUrl + "/customer/new-products");

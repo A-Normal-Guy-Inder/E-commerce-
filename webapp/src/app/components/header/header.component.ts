@@ -27,9 +27,9 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn;
 
     if (this.isLoggedIn) {
-      this.customerService.getCategories().subscribe((result) => {
-        this.categoryList = result;
-      });
+      this.customerService.categories$.subscribe((result) => {
+      this.categoryList = result;
+    });
     }
   }
 

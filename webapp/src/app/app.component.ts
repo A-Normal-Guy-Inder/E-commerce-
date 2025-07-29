@@ -7,6 +7,7 @@ import { WishlistService } from './services/wishlist.service';
 import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { CustomerService } from './services/customer.service';
 
 @Component({
   selector: 'app-root',
@@ -16,15 +17,18 @@ import { LoaderComponent } from './components/loader/loader.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'webapp';
   wishlistService=inject(WishlistService);
   cartService=inject(CartService);
   authService=inject(AuthService);
+  customerService = inject( CustomerService);
 
   ngOnInit(){
     if(this.authService.isLoggedIn){
       this.wishlistService.init();
       this.cartService.init();
+      this.customerService.fetchCategories();
     }
   }
 }
