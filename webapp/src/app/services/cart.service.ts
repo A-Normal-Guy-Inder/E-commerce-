@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Product } from '../types/product';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { CartItem } from '../types/cartItem';
 
 @Injectable({
