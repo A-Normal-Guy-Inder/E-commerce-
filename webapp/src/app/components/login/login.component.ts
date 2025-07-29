@@ -3,12 +3,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatInputModule,ReactiveFormsModule,NgIf],
+  imports: [MatInputModule,ReactiveFormsModule,NgIf,RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
