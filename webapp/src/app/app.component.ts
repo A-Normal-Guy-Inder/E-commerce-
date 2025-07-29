@@ -6,11 +6,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { WishlistService } from './services/wishlist.service';
 import { CartService } from './services/cart.service';
 import { AuthService } from './services/auth.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,MatButtonModule,HeaderComponent,FooterComponent],
+  imports: [RouterOutlet,MatButtonModule,HeaderComponent,FooterComponent,LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

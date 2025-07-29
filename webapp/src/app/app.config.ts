@@ -5,13 +5,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { tokenHttpInterceptor } from './core/token-http-interceptor';
+import { loaderHttpInterceptor } from './interceptors/loader.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideHttpClient(withInterceptors([tokenHttpInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        tokenHttpInterceptor,
+        loaderHttpInterceptor
+      ])
+    ),
     provideToastr({
       closeButton: true,
       positionClass: 'toast-center-center',
