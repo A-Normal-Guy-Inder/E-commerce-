@@ -22,13 +22,13 @@ export class CategoryService {
   
   addCategory(name:string){
     return this.http.post(environment.apiUrl + "/category",{
-      name: name,
+      name: name
     });
   }
 
   updateCategory(id:string, name:string){
     return this.http.put(environment.apiUrl + "/category/" + id,{
-      name: name,
+      name: name
     });    
   }
 

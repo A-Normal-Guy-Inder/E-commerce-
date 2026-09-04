@@ -1,0 +1,30 @@
+<div>
+  <div class="shadow-md hover:shadow-lg-bottom mb-4">
+    <owl-carousel-o [options]="customOptions">
+      @for (item of bannerImages(); track item._id) {
+        <ng-template carouselSlide>
+          <div class="relative flex flex-col items-center hover:cursor-pointer" [routerLink]="'products/' + item._id">
+            <img [src]="getOptimizedImage(item.images[0])" alt="image" class="max-h-[350px] object-contain" />
+            <span class="text-xs mt-1 text-center">{{ item.name }}</span>
+          </div>
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
+  <h4 class="text-xl font-bold mb-2">Featured Products:</h4>
+  <div class="flex flex-wrap gap-4 mb-4 items-stretch">
+    @for (product of FeaturedProducts(); track product._id; let i = $index) {
+      <div class="w-auto flex items-center">
+        <app-product-card [product]="product" class="w-full"></app-product-card>
+      </div>
+    }
+  </div>
+  <h4 class="text-xl font-bold mb-2">New Products:</h4>
+  <div class="flex flex-wrap gap-4 mb-4 items-stretch">
+    @for (product of newProducts(); track product._id; let i = $index) {
+      <div class="w-auto flex items-center">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    }
+  </div>
+</div>

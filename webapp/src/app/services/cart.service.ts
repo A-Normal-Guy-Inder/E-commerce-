@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Product } from '../types/product';
 import { environment } from '../../environments/environment';
 import { CartItem } from '../types/cartItem';
@@ -9,11 +9,12 @@ import { CartItem } from '../types/cartItem';
 })
 export class CartService {
   http=inject(HttpClient);
-  items:CartItem[]=[];
+  private readonly itemsState = signal<CartItem[]>([]);
+  readonly items = this.itemsState.asReadonly();
 
   init(){
     this.getCartItems().subscribe(result=>{
-      this.items=result;
+      this.itemsState.set(result);
     })
   }
 
@@ -23,7 +24,7 @@ export class CartService {
 
   addToCart(productId:string,quantity:number){
     return this.http.post(environment.apiUrl + "/customer/carts/"+productId,{
-      quantity: quantity,
+      quantity: quantity
     });
   }
 

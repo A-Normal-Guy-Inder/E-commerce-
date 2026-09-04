@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Product } from '../types/product';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -9,11 +9,12 @@ import { HttpClient } from '@angular/common/http';
 export class WishlistService {
   constructor() { }
   http=inject(HttpClient);
-  wishlists:Product[]=[];
+  private readonly wishlistsState = signal<Product[]>([]);
+  readonly wishlists = this.wishlistsState.asReadonly();
 
   init(){
     return this.getWishlists().subscribe((result)=>{
-      this.wishlists=result;
+      this.wishlistsState.set(result);
     });
   };
 

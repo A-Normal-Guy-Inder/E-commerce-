@@ -1,129 +1,141 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { CategoriesComponent } from './components/manage/categories/categories.component';
-import { CategoryFormComponent } from './components/manage/category-form/category-form.component';
-import { BrandsComponent } from './components/manage/brands/brands.component';
-import { BrandFormComponent } from './components/manage/brand-form/brand-form.component';
-import { ProductsComponent } from './components/manage/products/products.component';
-import { ProductFormComponent } from './components/manage/product-form/product-form.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { RegisterComponent } from './components/register/register.component';
-import { LoginComponent } from './components/login/login.component';
+import { Home } from './components/home/home';
+import { ProductDetail } from './components/product-detail/product-detail';
+import { ProductList } from './components/product-list/product-list';
+import { Register } from './components/register/register';
+import { Login } from './components/login/login';
 import { authGuard } from './core/auth-guard';
-import { AdminDashboardComponent } from './components/manage/admin-dashboard/admin-dashboard.component';
 import { adminGuard } from './core/admin-guard';
-import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
-import { WishlistsComponent } from './components/wishlists/wishlists.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
-import { CustomerOrdersComponent } from './components/customer-orders/customer-orders.component';
-import { OrdersComponent } from './components/manage/orders/orders.component';
-import { ContactUsComponent } from './components/footer-extra/contact-us/contact-us.component';
-import { ShippingComponent } from './components/footer-extra/shipping/shipping.component';
-import { ReturnsComponent } from './components/footer-extra/returns/returns.component';
-import { FaqComponent } from './components/footer-extra/faq/faq.component';
+import { CustomerProfile } from './components/customer-profile/customer-profile';
+import { Wishlists } from './components/wishlists/wishlists';
+import { ShoppingCart } from './components/shopping-cart/shopping-cart';
+import { CustomerOrders } from './components/customer-orders/customer-orders';
+import { ContactUs } from './components/footer-extra/contact-us/contact-us';
+import { Shipping } from './components/footer-extra/shipping/shipping';
+import { Returns } from './components/footer-extra/returns/returns';
+import { Faq } from './components/footer-extra/faq/faq';
 
 export const routes: Routes = [
     {
         path:"",
-        component:HomeComponent,
+        component:Home,
         canActivate:[authGuard],
     },
     {
         path:"admin/categories",
-        component:CategoriesComponent,
+        loadComponent: () =>
+            import('./components/manage/categories/categories').then((m) => m.Categories),
         canActivate:[adminGuard],
     },
     {
         path:"admin/categories/add",
-        component:CategoryFormComponent,
+        loadComponent: () =>
+            import('./components/manage/category-form/category-form').then((m) => m.CategoryForm),
         canActivate:[adminGuard],
     },
     {
         path:"admin/categories/:id",
-        component:CategoryFormComponent,
+        loadComponent: () =>
+            import('./components/manage/category-form/category-form').then((m) => m.CategoryForm),
         canActivate:[adminGuard],
     },
     {
         path:"admin/brands",
-        component:BrandsComponent,
+        loadComponent: () =>
+            import('./components/manage/brands/brands').then((m) => m.Brands),
         canActivate:[adminGuard],
     },
     {
         path:"admin/brands/add",
-        component:BrandFormComponent,
+        loadComponent: () =>
+            import('./components/manage/brand-form/brand-form').then((m) => m.BrandForm),
         canActivate:[adminGuard],
     },
     {
         path:"admin/brands/:id",
-        component:BrandFormComponent,
+        loadComponent: () =>
+            import('./components/manage/brand-form/brand-form').then((m) => m.BrandForm),
         canActivate:[adminGuard],
     },
     {
         path:"admin/products",
-        component:ProductsComponent,
+        loadComponent: () =>
+            import('./components/manage/products/products').then((m) => m.Products),
         canActivate:[adminGuard],
     },
     {
         path:"admin/products/add",
-        component:ProductFormComponent,
+        loadComponent: () =>
+            import('./components/manage/product-form/product-form').then((m) => m.ProductForm),
         canActivate:[adminGuard],
     },
     {
         path:"admin/products/:id",
-        component:ProductFormComponent,
+        loadComponent: () =>
+            import('./components/manage/product-form/product-form').then((m) => m.ProductForm),
         canActivate:[adminGuard],
     },
     {
         path:"products/:id",
-        component:ProductDetailComponent,
+        component:ProductDetail,
         canActivate:[authGuard],
     },
     {
         path:"products",
-        component:ProductListComponent,
+        component:ProductList,
         canActivate:[authGuard],
     },
     {
         path:"register",
-        component:RegisterComponent
+        component:Register
     },
     {
         path:"login",
-        component:LoginComponent,
+        component:Login,
     },
     {
         path:"admin",
-        component:AdminDashboardComponent,
+        loadComponent: () =>
+            import('./components/manage/admin-dashboard/admin-dashboard').then((m) => m.AdminDashboard),
         canActivate:[adminGuard],
     },
     {
         path:"profile",
-        component:CustomerProfileComponent,
+        component:CustomerProfile,
         canActivate:[authGuard],
     },
     {
         path:"wishlists",
-        component:WishlistsComponent,
+        component:Wishlists,
         canActivate:[authGuard],
     },
     {
         path:"cart",
-        component:ShoppingCartComponent,
+        component:ShoppingCart,
         canActivate:[authGuard],
     },
     {
         path:"orders",
-        component:CustomerOrdersComponent,
+        component:CustomerOrders,
         canActivate:[authGuard],
     },
     {
+        path:"admin/users",
+        canActivate:[adminGuard],
+        loadComponent: () =>
+            import('./components/manage/users/users').then((m) => m.Users),
+    },
+    {
         path:"admin/orders",
-        component:OrdersComponent,
+        loadComponent: () =>
+            import('./components/manage/orders/orders').then((m) => m.Orders),
         canActivate:[adminGuard],
     },
-    { path: 'contact-us', component: ContactUsComponent },
-    { path: 'shipping', component: ShippingComponent },
-    { path: 'returns', component: ReturnsComponent },
-    { path: 'faq', component: FaqComponent },
+    { path: 'contact-us', component: ContactUs },
+    { path: 'shipping', component: Shipping },
+    { path: 'returns', component: Returns },
+    { path: 'faq', component: Faq },
+
+    /* Without a catch-all, an unknown URL throws NG04002 and leaves a blank app */
+    { path: '**', redirectTo: '' },
 ];

@@ -1,32 +1,38 @@
 const jwt = require('jsonwebtoken');
+const { COOKIE_NAME } = require('../config/auth-cookie');
 
-function verifyToken(req,res,next){
-    const token = req.header('Authorization');
-    if(!token){
+/*
+ * The JWT travels in an httpOnly cookie, so it is never readable from
+ * JavaScript in the browser. Nothing is read from the Authorization header.
+ */
+function verifyToken(req, res, next) {
+    const token = req.cookies && req.cookies[COOKIE_NAME];
+    if (!token) {
         return res.status(401).send({
             error: "Access Denied",
         });
     }
-    try{
-        const decode=jwt.verify(token,process.env.JWT_SECRET);
+    try {
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decode;
         next();
     }
-    catch(err){
+    catch (err) {
         return res.status(401).send({
             error: "Invalid Token",
         });
     }
 }
 
-function isAdmin(req,res,next){
-    if(req.user && req.user.isAdmin){
+function isAdmin(req, res, next) {
+    if (req.user && req.user.isAdmin) {
         next();
     }
-    else{
+    else {
         return res.status(403).send({
             error: "Access Forbidden",
         });
     }
 }
-module.exports= { verifyToken,isAdmin };
+
+module.exports = { verifyToken, isAdmin };

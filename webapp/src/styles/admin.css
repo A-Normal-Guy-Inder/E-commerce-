@@ -1,0 +1,19 @@
+/* Was products.component.scss and product-form.component.scss */
+
+.short-desc-cell {
+  max-width: 350px;
+  overflow: hidden;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.short-desc-header {
+  max-width: 150px;
+}
+
+.tiny-x {
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  line-height: 1;
+}
