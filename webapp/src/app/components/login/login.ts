@@ -38,7 +38,7 @@ export class Login {
   async login(){
     let value=this.loginForm.value;
     try {
-      /* The session cookie is set by the server; nothing is stored here */
+      /* Server sets session cookie */
       await this.authService.login(value.email!, value.password!);
       this.router.navigateByUrl("/");
     } catch (err: any) {

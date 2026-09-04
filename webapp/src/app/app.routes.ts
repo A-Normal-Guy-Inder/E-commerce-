@@ -136,6 +136,6 @@ export const routes: Routes = [
     { path: 'returns', component: Returns },
     { path: 'faq', component: Faq },
 
-    /* Without a catch-all, an unknown URL throws NG04002 and leaves a blank app */
+    /* Catch-all prevents NG04002 */
     { path: '**', redirectTo: '' },
 ];

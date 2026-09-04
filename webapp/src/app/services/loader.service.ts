@@ -2,7 +2,7 @@ import { Injectable, computed, signal } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class LoaderService {
-  /* In-flight request count; the overlay shows while it is above zero */
+  /* In-flight request count */
   private readonly requestCount = signal(0);
 
   readonly isLoading = computed(() => this.requestCount() > 0);

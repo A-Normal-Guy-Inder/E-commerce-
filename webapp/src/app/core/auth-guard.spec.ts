@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { authGuard } from './auth-guard';
 import { AuthService } from '../services/auth.service';
 
-/* The session is resolved before the first activation, so the guard reads signals synchronously. */
+/* Guard reads signals synchronously */
 describe('authGuard', () => {
   function configure(signedIn: boolean) {
     TestBed.configureTestingModule({

@@ -22,10 +22,7 @@ router.post("/login", async (req, res) => {
     if (model.email && model.password) {
         const result = await loginUser(model);
         if (result) {
-            /*
-             * The token goes out only as an httpOnly cookie. It is deliberately
-             * absent from the body so no browser script can read or store it.
-             */
+            /* Token only in cookie */
             res.cookie(COOKIE_NAME, result.token, setOptions());
             return res.send({ user: result.user });
         }
@@ -42,7 +39,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-/* The client cannot read the cookie, so it asks who it is signed in as */
+/* Client cannot read cookie */
 router.get("/me", verifyToken, (req, res) => {
     res.send({
         user: {

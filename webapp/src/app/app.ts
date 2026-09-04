@@ -23,7 +23,7 @@ export class App {
   customerService = inject(CustomerService);
 
   ngOnInit() {
-    /* The session is already resolved by the app initializer */
+    /* Session already resolved */
     if (this.authService.isLoggedIn()) {
       this.wishlistService.init();
       this.cartService.init();

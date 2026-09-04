@@ -5,7 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { credentialsInterceptor } from './credentials.interceptor';
 import { environment } from '../../environments/environment';
 
-/* Without withCredentials the browser never attaches the httpOnly session cookie. */
+/* Cookie needs withCredentials */
 describe('credentialsInterceptor', () => {
   let http: HttpClient;
   let mock: HttpTestingController;

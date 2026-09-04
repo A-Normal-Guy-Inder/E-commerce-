@@ -62,7 +62,7 @@ export class Users {
     }
   }
 
-  /* The API rejects self-demotion and self-deletion; disable them here too */
+  /* API also blocks self */
   isSelf(row: User): boolean {
     return this.authService.user()?.id === row.id;
   }

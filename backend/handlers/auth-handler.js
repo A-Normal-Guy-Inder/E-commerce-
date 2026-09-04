@@ -2,7 +2,7 @@ const User = require("./../db/user");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
-/* Never let the password hash reach a response body */
+/* Never expose password hash */
 function toSafeUser(user) {
     return {
         id: user._id,

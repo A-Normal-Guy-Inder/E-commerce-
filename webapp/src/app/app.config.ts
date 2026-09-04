@@ -10,7 +10,7 @@ import { AuthService } from './services/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    /* Zoneless: change detection is driven by signals, not zone.js */
+    /* Zoneless: use signals */
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideAnimationsAsync(),
@@ -20,10 +20,7 @@ export const appConfig: ApplicationConfig = {
         loaderHttpInterceptor
       ])
     ),
-    /*
-     * Resolve the cookie session once before the first route activates, so
-     * guards and templates can read the auth signals synchronously.
-     */
+    /* Resolve session before routing */
     provideAppInitializer(() => inject(AuthService).fetchCurrentUser()),
     provideToastr({
       closeButton: true,

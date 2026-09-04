@@ -38,7 +38,7 @@ describe('AuthService', () => {
     expect(service.checked()).toBeTrue();
   });
 
-  /* The live database has a user with no isAdmin field at all - it must not read as an admin. */
+  /* Live user lacks isAdmin */
   it('treats a missing isAdmin field as a non-admin', async () => {
     const pending = service.fetchCurrentUser();
     http.expectOne(environment.apiUrl + '/auth/me')
@@ -72,7 +72,7 @@ describe('AuthService', () => {
     expect(service.userName()).toBe('Test');
   });
 
-  /* Only the server can clear an httpOnly cookie, so logout must be a request. */
+  /* Server must clear cookie */
   it('clears the session by asking the server to expire the cookie', async () => {
     const signIn = service.login('cust123@gmail.com', 'Hello@123');
     http.expectOne(environment.apiUrl + '/auth/login')

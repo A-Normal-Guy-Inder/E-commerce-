@@ -1,10 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { COOKIE_NAME } = require('../config/auth-cookie');
 
-/*
- * The JWT travels in an httpOnly cookie, so it is never readable from
- * JavaScript in the browser. Nothing is read from the Authorization header.
- */
+/* Token from httpOnly cookie */
 function verifyToken(req, res, next) {
     const token = req.cookies && req.cookies[COOKIE_NAME];
     if (!token) {

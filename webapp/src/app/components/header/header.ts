@@ -15,7 +15,7 @@ export class Header {
   authService = inject(AuthService);
   router = inject(Router);
 
-  /* Signal from the service; no subscription to keep in sync */
+  /* Signal, no subscription */
   categoryList = this.customerService.categories;
   searchTerm!: string;
 

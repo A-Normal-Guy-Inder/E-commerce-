@@ -5,11 +5,7 @@ import { environment } from '../../environments/environment';
 import { Contactus } from '../types/contactus';
 import { User } from '../types/user';
 
-/*
- * The session lives in an httpOnly cookie, so nothing here can read the JWT.
- * Identity comes from the server via /auth/me and is held in a signal that
- * templates and guards read synchronously once it has been resolved.
- */
+/* Identity from /auth/me */
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +13,7 @@ export class AuthService {
   private readonly http = inject(HttpClient);
 
   private readonly currentUser = signal<User | null>(null);
-  /* False until the first /auth/me round trip settles */
+  /* False until resolved */
   private readonly resolved = signal(false);
 
   readonly user = this.currentUser.asReadonly();
@@ -37,7 +33,7 @@ export class AuthService {
     });
   }
 
-  /* The response carries the user; the token arrives as a Set-Cookie header */
+  /* Token arrives as cookie */
   async login(email: string, password: string): Promise<User> {
     const result = await firstValueFrom(
       this.http.post<{ user: User }>(environment.apiUrl + "/auth/login", { email, password })
@@ -47,7 +43,7 @@ export class AuthService {
     return result.user;
   }
 
-  /* Resolves identity from the cookie. Safe to call when signed out. */
+  /* Safe when signed out */
   async fetchCurrentUser(): Promise<User | null> {
     try {
       const result = await firstValueFrom(
@@ -67,7 +63,7 @@ export class AuthService {
     return this.http.get<Contactus[]>(environment.apiUrl + "/auth/contact-us");
   }
 
-  /* Only the server can clear an httpOnly cookie */
+  /* Server clears the cookie */
   async logout(): Promise<void> {
     try {
       await firstValueFrom(this.http.post(environment.apiUrl + "/auth/logout", {}));

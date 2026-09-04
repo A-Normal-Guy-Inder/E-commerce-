@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { User } from '../types/user';
 import { environment } from '../../environments/environment';
 
-/* Admin-only: every endpoint sits behind verifyToken + isAdmin on the API */
+/* Admin-only endpoints */
 @Injectable({
   providedIn: 'root'
 })

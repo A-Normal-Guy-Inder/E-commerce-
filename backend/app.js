@@ -14,10 +14,7 @@ const orderRoutes = require("./routes/order");
 const userRoutes = require("./routes/user");
 const { verifyToken,isAdmin } = require('./middleware/auth-middleware');
 
-/*
- * A credentialed request cannot use a wildcard origin, so the allowlist is
- * explicit. FRONTEND_URL takes a comma-separated list of deployed origins.
- */
+/* Credentialed CORS needs allowlist */
 const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:4200")
     .split(",")
     .map((origin) => origin.trim())

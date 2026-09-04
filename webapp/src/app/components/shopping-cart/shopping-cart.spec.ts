@@ -36,7 +36,7 @@ describe('ShoppingCart pricing', () => {
   });
 
   it('rounds a fractional discounted price', () => {
-    // 999 * 85 / 100 = 849.15
+    // 849.15 rounds to 849
     expect(build().sellingPrice(product(999, 15))).toBe(849);
   });
 
@@ -46,13 +46,13 @@ describe('ShoppingCart pricing', () => {
 
   it('totals the cart, then adds 12% tax on top of the subtotal', () => {
     items.set([
-      { product: product(1000, 10), quantity: 2 },  // 900 x 2 = 1800
+      { product: product(1000, 10), quantity: 2 },  // 900 x 2
       { product: product(499, 0), quantity: 1 },    //           499
     ]);
     const component = build();
 
     expect(component.getSubAmount()).toBe(2299);
-    expect(component.tax).toBe(276);              // round(2299 * 0.12) = 275.88 -> 276
+    expect(component.tax).toBe(276);              // 275.88 rounds up
     expect(component.totalAmount).toBe(2575);
   });
 

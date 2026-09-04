@@ -2,7 +2,7 @@ const User = require("../db/user");
 const { toSafeUser } = require("./auth-handler");
 
 async function getUsers() {
-    /* Excluding password at the query level, not after the fact */
+    /* Exclude password in query */
     const users = await User.find({}, "-password").lean();
     return users.map((user) => ({
         id: user._id,

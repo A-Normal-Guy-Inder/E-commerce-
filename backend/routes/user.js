@@ -2,7 +2,7 @@ const express = require("express");
 const { getUsers, getUser, setUserRole, deleteUser } = require("../handlers/user-handler");
 const router = express.Router();
 
-/* Mounted behind verifyToken + isAdmin in app.js */
+/* Admin-only routes */
 
 router.get("/", async (req, res) => {
     const users = await getUsers();
@@ -20,7 +20,7 @@ router.patch("/:id/role", async (req, res) => {
     if (typeof isAdmin !== "boolean") {
         return res.status(400).send({ error: "Provide isAdmin as a boolean." });
     }
-    /* An admin demoting themselves would lock them out of this screen */
+    /* Prevent self lockout */
     if (req.params.id === req.user.id && isAdmin === false) {
         return res.status(400).send({ error: "You cannot remove your own admin access." });
     }
