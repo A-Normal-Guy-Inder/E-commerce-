@@ -19,13 +19,13 @@ export class BrandService {
   }
   addBrand(name:string){
     return this.http.post(environment.apiUrl + "/brands",{
-      name: name,
+      name: name
     });
   }
 
   updateBrand(id:string, name:string){
     return this.http.put(environment.apiUrl + "/brands/" + id,{
-      name: name,
+      name: name
     });    
   }
 

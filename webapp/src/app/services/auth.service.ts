@@ -1,16 +1,31 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { jwtDecode } from "jwt-decode";
 import { Contactus } from '../types/contactus';
+import { User } from '../types/user';
 
+/* Identity from /auth/me */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
-  constructor() { }
+  private readonly currentUser = signal<User | null>(null);
+  /* False until resolved */
+  private readonly resolved = signal(false);
+
+  readonly user = this.currentUser.asReadonly();
+  readonly checked = this.resolved.asReadonly();
+
+  readonly isLoggedIn = computed(() => this.currentUser() !== null);
+  readonly isAdmin = computed(() => this.currentUser()?.isAdmin === true);
+  readonly userName = computed(() => this.currentUser()?.name ?? '');
+  readonly userEmail = computed(() => this.currentUser()?.email ?? '');
+  readonly userRole = computed(() =>
+    this.currentUser() ? (this.currentUser()!.isAdmin ? 'Admin' : 'Customer') : ''
+  );
 
   register(name: string, email: string, password: string) {
     return this.http.post(environment.apiUrl + "/auth/register", {
@@ -18,63 +33,43 @@ export class AuthService {
     });
   }
 
-  login(email: string, password: string) {
-    return this.http.post(environment.apiUrl + "/auth/login", {
-      email, password
-    });
+  /* Token arrives as cookie */
+  async login(email: string, password: string): Promise<User> {
+    const result = await firstValueFrom(
+      this.http.post<{ user: User }>(environment.apiUrl + "/auth/login", { email, password })
+    );
+    this.currentUser.set(result.user);
+    this.resolved.set(true);
+    return result.user;
   }
 
-  get isLoggedIn(): boolean {
-    const token = localStorage.getItem('token');
-    if (!token) return false;
-
+  /* Safe when signed out */
+  async fetchCurrentUser(): Promise<User | null> {
     try {
-      const decoded: any = jwtDecode(token);
-      const now = Math.floor(Date.now() / 1000);
-      return decoded.exp && decoded.exp > now;
-    } catch (e) {
-      return false;
+      const result = await firstValueFrom(
+        this.http.get<{ user: User }>(environment.apiUrl + "/auth/me")
+      );
+      this.currentUser.set(result.user ?? null);
+      return this.currentUser();
+    } catch {
+      this.currentUser.set(null);
+      return null;
+    } finally {
+      this.resolved.set(true);
     }
-  }
-
-  get isAdmin(): boolean {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      return JSON.parse(userData).isAdmin;
-    }
-    return false;
-  }
-
-  get userName(): string | false {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      return JSON.parse(userData).name;
-    }
-    return false;
-  }
-
-  get userEmail(): string | false {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      return JSON.parse(userData).email;
-    }
-    return false;
-  }
-
-  get userRole(): string | false {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      return JSON.parse(userData).isAdmin === true ? "Admin" : "Customer";
-    }
-    return false;
   }
 
   getContactUsMessages() {
     return this.http.get<Contactus[]>(environment.apiUrl + "/auth/contact-us");
   }
 
-  logout(): void {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  /* Server clears the cookie */
+  async logout(): Promise<void> {
+    try {
+      await firstValueFrom(this.http.post(environment.apiUrl + "/auth/logout", {}));
+    } finally {
+      this.currentUser.set(null);
+      this.resolved.set(true);
+    }
   }
 }

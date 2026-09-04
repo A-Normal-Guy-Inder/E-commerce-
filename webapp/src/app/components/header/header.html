@@ -1,0 +1,69 @@
+<header class="header w-full bg-theme-light shadow">
+  <!-- Top Bar -->
+  <div class="top-bar flex flex-col md:flex-row items-center justify-between gap-3 px-4 py-2 border-b border-theme-border">
+    <img class="h-14 w-21 cursor-pointer" src="/images/logo.png" alt="logo" routerLink="/">
+    @if (authService.isAdmin()) {
+      <div routerLink="/admin" class="logo text-xl font-semibold text-gray-800 hover:underline cursor-pointer">
+        Admin Controls
+      </div>
+    }
+
+    <div class="search-bar">
+      @if (authService.isLoggedIn()) {
+        <input
+          type="text"
+          placeholder="Search for products..."
+          [(ngModel)]="searchTerm"
+          class="search-input px-3 py-1.5 border rounded-md w-[400px] max-w-full transition-all duration-300 ease-in-out focus:w-[550px] focus:outline-none border-theme-input"
+          (keyup.enter)="onSearch($event)"
+          />
+      }
+    </div>
+
+    @if (authService.isLoggedIn()) {
+      <div class="flex justify-center item-baseline gap-2">
+        @if (!authService.isAdmin()) {
+          <a routerLink="/wishlists" class="text-theme-primary text-sm font-medium hover:underline cursor-pointer">
+            <mat-icon class="text-red-500">favorite</mat-icon>
+          </a>
+        }
+        @if (!authService.isAdmin()) {
+          <a routerLink="/cart" class=" text-theme-primary text-sm font-medium hover:underline cursor-pointer">
+            <mat-icon class="text-black">shopping_cart</mat-icon>
+          </a>
+        }
+        @if (!authService.isAdmin()) {
+          <a routerLink="/orders" class=" text-theme-primary text-md font-medium hover:underline cursor-pointer">
+            My Orders
+          </a>
+        }
+        <a routerLink="/profile" class=" text-theme-primary text-md font-medium hover:underline cursor-pointer">
+          {{authService.userName()}}
+        </a>
+      </div>
+    }
+    @if (!authService.isLoggedIn()) {
+      <div>
+        <a routerLink="/login" class="profile-link text-theme-primary text-sm font-medium hover:underline cursor-pointer">
+          Log in
+        </a>
+        <a  routerLink="/register" class=" ml-1 profile-link text-theme-primary text-sm font-medium hover:underline cursor-pointer">
+          Register
+        </a>
+      </div>
+    }
+  </div>
+
+  <!-- Category Menu -->
+  @if (authService.isLoggedIn()) {
+    <nav class="category-menu bg-theme-border">
+      <ul class="flex flex-wrap justify-center gap-4 py-3 px-4 text-base font-medium text-gray-700">
+        @for (cat of categoryList(); track cat._id) {
+          <li class="hover:cursor-pointer">
+            <a  (click)="searchCategory(cat._id!)"  class="hover:text-theme-primary">{{ cat.name }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  }
+</header>

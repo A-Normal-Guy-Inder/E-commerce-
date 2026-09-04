@@ -25,7 +25,7 @@ export class OrderService {
 
   updateOrderStatus(id:string,status:string){
     return this.http.post(environment.apiUrl+"/orders/"+id,{
-      status:status,
+      status:status
     });
   }
 }
